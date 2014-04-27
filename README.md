@@ -5,22 +5,29 @@
 
 ## Usage
 
-To run the example project; clone the repo, and run `pod install` from the Example directory first.
+### Define factory
 
-## Requirements
+```objective-c
+NTYFactory *userFactory = [NTYFactory factoryWithManagedObjectContext:context entityName:@"User" defaults:@{
+    @"name": @"Alice",
+    @"age": @18
+}];
+```
 
-## Installation
+### Create an object
 
-NTYFactory is available through [CocoaPods](http://cocoapods.org), to install
-it simply add the following line to your Podfile:
+```objective-c
+User *defaultUser = [userFactory create];
+User *bob = [userFactory createWithProperties:@{@"name": @"Bob", @"age": @19}];
+```
 
-    pod "NTYFactory"
+### Create objects
 
-## Author
-
-Naoto Kaneko, naoty.k@gmail.com
-
-## License
-
-NTYFactory is available under the MIT license. See the LICENSE file for more info.
-
+```objective-c
+NSArray *usersProperties = @[
+    @{@"name": @"Charlie"},
+    @{@"name": @"Dave", @"age": @20},
+    @{@"name": @"Ellen"}
+];
+NSArray *users = [userFactory createListWithProperties:usersProperties];
+```
