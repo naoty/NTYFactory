@@ -8,7 +8,7 @@
 ### Define factory
 
 ```objective-c
-NTYFactory *userFactory = [NTYFactory factoryWithManagedObjectContext:context entityName:@"User" defaults:@{
+NTYFactory *userFactory = [NTYFactory factoryWithManagedObjectContext:context entityName:@"User" defaultProperties:@{
     @"name": @"Alice",
     @"age": @18
 }];
@@ -17,17 +17,16 @@ NTYFactory *userFactory = [NTYFactory factoryWithManagedObjectContext:context en
 ### Create an object
 
 ```objective-c
-User *defaultUser = [userFactory create];
-User *bob = [userFactory createWithProperties:@{@"name": @"Bob", @"age": @19}];
+NSManagedObject *defaultUser = [userFactory create];
+NSManagedObject *bob = [userFactory createWithProperties:@{@"name": @"Bob", @"age": @19}];
 ```
 
 ### Create objects
 
 ```objective-c
-NSArray *usersProperties = @[
+NSArray *users = [userFactory createListWithPropertiesList:@[
     @{@"name": @"Charlie"},
-    @{@"name": @"Dave", @"age": @20},
-    @{@"name": @"Ellen"}
-];
-NSArray *users = [userFactory createListWithProperties:usersProperties];
+    @{@"name": @"Dave", @"age": @19},
+    @{@"name": @"Ellen", @"age": @20}
+]];
 ```

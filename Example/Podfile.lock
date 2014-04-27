@@ -1,0 +1,14 @@
+PODS:
+  - NTYFactory (0.1.0)
+
+DEPENDENCIES:
+  - NTYFactory (from `../`)
+
+EXTERNAL SOURCES:
+  NTYFactory:
+    :path: ../
+
+SPEC CHECKSUMS:
+  NTYFactory: 400643a60ff8da5bbb1fc4ec2192a633153c86e1
+
+COCOAPODS: 0.32.1

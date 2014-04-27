@@ -1,7 +1,2 @@
+platform :ios, "7.1"
 pod "NTYFactory", :path => "../"
-
-target "Demo" do
-end
-
-target "DemoTests" do
-end
