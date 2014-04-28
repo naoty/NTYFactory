@@ -49,7 +49,7 @@
     request.entity = [NSEntityDescription entityForName:@"User" inManagedObjectContext:managedObjectContext];
     request.fetchBatchSize = 10;
     
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"age" ascending:YES];
     request.sortDescriptors = @[sortDescriptor];
     
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:managedObjectContext sectionNameKeyPath:nil cacheName:nil];

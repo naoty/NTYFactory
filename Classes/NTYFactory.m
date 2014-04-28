@@ -8,6 +8,8 @@
 
 #import <CoreData/CoreData.h>
 #import "NTYFactory.h"
+#import "NTYSequentialNumber.h"
+#import "NTYSequentialString.h"
 
 @interface NTYFactory ()
 @property (nonatomic) NSManagedObjectContext *managedObjectContext;
@@ -46,7 +48,14 @@
     
     NSManagedObject *object = [NSEntityDescription insertNewObjectForEntityForName:_entityName inManagedObjectContext:_managedObjectContext];
     for (NSString *key in mergedProperties) {
-        [object setValue:mergedProperties[key] forKeyPath:key];
+        id value = mergedProperties[key];
+        if ([value isKindOfClass:[NTYSequentialNumber class]]) {
+            [object setValue:((NTYSequentialNumber *)value).number forKey:key];
+        } else if ([value isKindOfClass:[NTYSequentialString class]]) {
+            [object setValue:((NTYSequentialString *)value).string forKey:key];
+        } else {
+            [object setValue:mergedProperties[key] forKey:key];
+        }
     }
     [_managedObjectContext save:nil];
     
@@ -57,6 +66,20 @@
 {
     NSMutableArray *objects = [NSMutableArray new];
     for (NSDictionary *properties in propertiesList) {
+        [objects addObject:[self createWithProperties:properties]];
+    }
+    return [objects copy];
+}
+
+- (NSArray *)createListByNumber:(NSNumber *)number
+{
+    return [self createListByNumber:number properties:@{}];
+}
+
+- (NSArray *)createListByNumber:(NSNumber *)number properties:(NSDictionary *)properties
+{
+    NSMutableArray *objects = [NSMutableArray new];
+    for (NSInteger index = 0; index < number.intValue; index++) {
         [objects addObject:[self createWithProperties:properties]];
     }
     return [objects copy];

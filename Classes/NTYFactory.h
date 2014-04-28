@@ -23,5 +23,7 @@
 
 // Create objects
 - (NSArray *)createListWithPropertiesList:(NSArray *)propertiesList;
+- (NSArray *)createListByNumber:(NSNumber *)number;
+- (NSArray *)createListByNumber:(NSNumber *)number properties:(NSDictionary *)properties;
 
 @end

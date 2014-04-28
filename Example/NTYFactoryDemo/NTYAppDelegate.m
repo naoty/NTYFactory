@@ -9,6 +9,8 @@
 #import <CoreData/CoreData.h>
 #import "NTYAppDelegate.h"
 #import "NTYFactory.h"
+#import "NTYSequentialString.h"
+#import "NTYSequentialNumber.h"
 
 @interface NTYAppDelegate ()
 @property (nonatomic) NSURL *applicationDocumentDirectoryURL;
@@ -22,15 +24,11 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     NTYFactory *userFactory = [NTYFactory factoryWithManagedObjectContext:self.managedObjectContext entityName:@"User" defaultProperties:@{
-        @"name": @"Default name",
-        @"age": @20
+        @"name": [NTYSequentialString stringWithFormat:@"User %@" from:@1],
+        @"age": [NTYSequentialNumber numberFromNumber:@18 step:@3]
     }];
     
-    [userFactory createListWithPropertiesList:@[
-        @{@"name": @"Alice", @"age": @18},
-        @{@"name": @"Bob", @"age": @19},
-        @{@"name": @"Charlie"}
-    ]];
+    [userFactory createListByNumber:@10];
     
     return YES;
 }
